@@ -29,7 +29,7 @@ app.get('/about', function(req, res) {
 
 app.get('/contact', function(req, res) {
 	var sql = 'SELECT * FROM CONTACTS;';
-	db.all(,[], (err, rows) =>{
+	db.all(sql, [], (err, rows) =>{
 	res.render('pages/contacts', {contacts: rows });
 	});
 });

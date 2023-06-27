@@ -4,6 +4,8 @@ var sqlite3 = require('sqlite3').verbose();
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 let db = new sqlite3.Database('mydata.db3');
 
@@ -34,11 +36,20 @@ app.get('/contact', function(req, res) {
 	});
 });
 
-app.get('/build', function(req, res) {
-	db.run('CREATE TABLE IF NOT EXISTS contacts (fname text, lname text, email text, phone text)');
-	db.close();
-	res.send('The database function has ended');
+app.post('/contact_post', function(req, res) {
+    const fname = req.body.fname;
+    const lname = req.body.lname;
+    const email = req.body.email;
+    const phone = req.body.phone;
+    const sql=`insert into contacts values ('${fname}', '${lname}', '${email}','${phone}')`;
+    console.log(sql);
+    db.run(sql, [], function(err) {
+        console.log(err);
+
+    });
+    res.redirect("/contact");
 });
 
+
 app.listen(8080);
-console.log('Server is listening on port 8080');
+    console.log('Server is listening on port 8080');

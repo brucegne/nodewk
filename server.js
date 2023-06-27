@@ -28,8 +28,8 @@ app.get('/about', function(req, res) {
 });
 
 app.get('/contact', function(req, res) {
-	var sql = 'SELECT * FROM CONTACTS;';
-	db.all(sql,[], (err, rows) =>{
+	var  = 'SELECT * FROM CONTACTS;';
+	db.all(,[], (err, rows) =>{
 	res.render('pages/contacts', {contacts: rows });
 	});
 });
@@ -39,7 +39,6 @@ app.get('/build', function(req, res) {
 	db.close();
 	res.send('The database function has ended');
 });
-
 
 app.listen(8080);
 console.log('Server is listening on port 8080');

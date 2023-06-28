@@ -30,10 +30,32 @@ app.get('/about', function(req, res) {
 });
 
 app.get('/contact', function(req, res) {
-	var sql = 'SELECT * FROM CONTACTS;';
+	var sql = 'SELECT rowid,* FROM CONTACTS;';
 	db.all(sql, [], (err, rows) =>{
+    console.log(rows);
 	res.render('pages/contacts', {contacts: rows });
 	});
+});
+
+app.get('/edit/:recID', (req, res) => {
+    const recID = req.params.recID;
+    const sql = `select rowid, *  from contacts where rowid = '${recID}';` 
+    db.all(sql, [], (err, rows) => {
+        res.send(rows);
+    });
+});
+
+app.get('/editrec/:recID/:newName', (req, res) => {
+    const recID = req.params.recID;
+    const newVal = req.params.newName
+    var sql = `update contacts set fname='${newVal}' where rowid = ${recID}`;
+    db.run(sql, [], function(err) {
+        console.log(err);
+    });
+    var sql = `select rowid, *  from contacts where rowid = '${recID}';` 
+    db.all(sql, [], (err, rows) => {
+        res.send(rows);
+    });
 });
 
 app.post('/contact_post', function(req, res) {

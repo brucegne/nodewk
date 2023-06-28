@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<style>
+.glyph-icon svc {
+    width: 16px;
+    height: 16px;
+}
+</style>
   <%- include('../partials/head'); %>
 </head>
 <body class="container">
@@ -34,7 +40,7 @@
     </form>
     <ul>
       <% contacts.forEach(function(contact) { %>
-        <li>
+      <li><a href="/edit/<%= contact.rowid %>"<span class="material-symbols-outlined">edit</span></a>
 		<strong><%= contact.fname %> <%= contact.lname%></strong>
           Email Address: <%= contact.email %>,
 	  at telephone <%= contact.phone %>

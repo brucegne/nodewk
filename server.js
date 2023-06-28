@@ -32,7 +32,6 @@ app.get('/about', function(req, res) {
 app.get('/contact', function(req, res) {
 	var sql = 'SELECT rowid,* FROM CONTACTS;';
 	db.all(sql, [], (err, rows) =>{
-    console.log(rows);
 	res.render('pages/contacts', {contacts: rows });
 	});
 });
@@ -40,21 +39,37 @@ app.get('/contact', function(req, res) {
 app.get('/edit/:recID', (req, res) => {
     const recID = req.params.recID;
     const sql = `select rowid, *  from contacts where rowid = '${recID}';` 
-    db.all(sql, [], (err, rows) => {
-        res.send(rows);
+    db.all(sql, [], (err, row) => {
+        console.log(row[0]);
+        res.render('pages/edit', {contact: row[0]});
     });
 });
 
-app.get('/editrec/:recID/:newName', (req, res) => {
+app.delete('/delete/:recID', (req, res) => {
     const recID = req.params.recID;
-    const newVal = req.params.newName
-    var sql = `update contacts set fname='${newVal}' where rowid = ${recID}`;
-    db.run(sql, [], function(err) {
-        console.log(err);
+    const sql = `delete from contacts where rowid = '${recID}';` 
+    db.all(sql, [], (err, row) => {
+        console.log(row[0]);
+        res.render('pages/edit', {contact: row[0]});
     });
-    var sql = `select rowid, *  from contacts where rowid = '${recID}';` 
-    db.all(sql, [], (err, rows) => {
-        res.send(rows);
+});
+
+app.post('/editrec', (req, res) => {
+    var rowid = req.body.rowid;
+    var fname = req.body.fname;
+    var lname = req.body.lname;
+    var email = req.body.email;
+    var phone = req.body.phone;
+    var delCont = req.body.delCont;
+    if(delCont) {
+        var sql = `delete from contacts where rowid = '${rowid}';`;
+    } else {
+        var sql = `update contacts set fname='${fname}', lname='${lname}', email='${email}', phone='${phone}'  where rowid = ${rowid}`;
+    }
+    db.run(sql, [], function(err,row) {
+        console.log(err);
+        console.log(delCont);
+        res.redirect('/contact');
     });
 });
 
@@ -71,7 +86,6 @@ app.post('/contact_post', function(req, res) {
     });
     res.redirect("/contact");
 });
-
 
 app.listen(8080);
     console.log('Server is listening on port 8080');

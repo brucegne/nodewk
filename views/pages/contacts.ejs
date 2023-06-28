@@ -40,7 +40,7 @@
     </form>
     <ul>
       <% contacts.forEach(function(contact) { %>
-      <li><a href="/edit<%= contact.rowid %>/Reset to 0"<span class="material-symbols-outlined">edit</span></a>
+      <li><a href="/edit/<%= contact.rowid %>/"<span class="material-symbols-outlined">edit</span></a>
 		<strong><%= contact.fname %> <%= contact.lname%></strong>
           Email Address: <%= contact.email %>,
 	  at telephone <%= contact.phone %>

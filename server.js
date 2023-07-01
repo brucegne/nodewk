@@ -1,5 +1,7 @@
 var express = require('express');
 var app = express();
+var request = require('request');
+var nodemailer = require('nodemailer');
 var sqlite3 = require('sqlite3').verbose();
 
 // set the view engine to ejs
@@ -8,6 +10,31 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 let db = new sqlite3.Database('mydata.db3');
+
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: { 
+        user: 'brucegne@gmail.com',
+        pass: 'scfymqarxgsnrodj'
+    }
+});
+
+function mailIt(){
+    var mailOptions = {
+        from: 'brucegne@gmail.com',
+        to: 'brucegne@gmail.com',
+        submect: 'Sending a test email from node js',
+        text: 'That was way easier than I thought it would be.'
+    }
+
+    transporter.sendMail(mailOptions, function(error, info){
+        if(error) {
+            console.log(error);
+        }else{
+            console.log(info);
+        }
+    });
+};
 
 // index page
 app.get('/', function(req, res) {
@@ -24,8 +51,13 @@ app.get('/', function(req, res) {
   });
 });
 
+app.get('/paper', function(req, res) {
+    res.render('pages/mypaper');
+});
+
 // about page
 app.get('/about', function(req, res) {
+   mailIt();
   res.render('pages/about');
 });
 
@@ -87,5 +119,5 @@ app.post('/contact_post', function(req, res) {
     res.redirect("/contact");
 });
 
-app.listen(8080);
+app.listen(8085);
     console.log('Server is listening on port 8080');

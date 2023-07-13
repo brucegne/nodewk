@@ -64,7 +64,7 @@ app.get('/about', function(req, res) {
 app.get('/contact', function(req, res) {
 	var sql = 'SELECT rowid,* FROM CONTACTS;';
 	db.all(sql, [], (err, rows) =>{
-	res.render('pages/contacts', {contacts: rows });
+	res.render('pages/contacts', {contacts: rows, uname: 'Bruce E. Gordon', mesg: "Isn't this neet?" });
 	});
 });
 

@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var request = require('request');
+const fileUpload = require('express-fileupload');
 var nodemailer = require('nodemailer');
 var sqlite3 = require('sqlite3').verbose();
 
@@ -8,6 +9,7 @@ var sqlite3 = require('sqlite3').verbose();
 app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(fileUpload());
 
 let db = new sqlite3.Database('mydata.db3');
 
@@ -117,6 +119,22 @@ app.post('/contact_post', function(req, res) {
 
     });
     res.redirect("/contact");
+});
+
+app.get('/upload', (req, res) => {
+    res.render('pages/upload')
+});
+
+app.post('/upload', (req, res) => {
+    // Get the file that was set to our field named "image"
+    const { image } = req.files;
+
+    // If no image submitted, exit
+    if (!image) return res.sendStatus(400);
+
+    // Move the uploaded image to our upload folder
+    image.mv(__dirname + '/upload/' + image.name);
+    res.redirect('/');
 });
 
 app.listen(5000);

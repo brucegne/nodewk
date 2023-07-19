@@ -66,10 +66,10 @@ app.get('/about', function(req, res) {
 });
 
 app.get('/contact', function(req, res) {
-	var sql = 'SELECT rowid,* FROM CONTACTS;';
-	db.all(sql, [], (err, rows) =>{
-	res.render('pages/contacts', {contacts: rows, uname: 'Bruce E. Gordon', mesg: "Isn't this neet?" });
-	});
+    var sql = 'SELECT rowid,* FROM CONTACTS;';
+    db.all(sql, [], (err, rows) =>{
+    res.render('pages/contacts', {contacts: rows, uname: 'Bruce E. Gordon', mesg: "Isn't this neet?" });
+    });
 });
 
 app.get('/edit/:recID', (req, res) => {
@@ -156,6 +156,7 @@ app.post('/upload', (req, res) => {
 
     // If no image submitted, exit
     if (!image) return res.sendStatus(400);
+    console.log(__dirname);
     console.log(image.name);
     console.log(image.mimetype);
 

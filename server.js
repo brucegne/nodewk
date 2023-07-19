@@ -1,6 +1,11 @@
 var express = require('express');
 var app = express();
 var request = require('request');
+const path = require('path');
+const fs = require('fs');
+//joining path of directory 
+const directoryPath = path.join(__dirname, 'image');
+
 const fileUpload = require('express-fileupload');
 var nodemailer = require('nodemailer');
 var sqlite3 = require('sqlite3').verbose();
@@ -54,6 +59,17 @@ app.get('/', function(req, res) {
     tagline: tagline
   });
 });
+
+
+app.get('/images', function(req, res) {
+    fs.readdir(directoryPath, function (err, files) {
+    //handling error
+    if (err) {
+        return console.log('Unable to scan directory: ' + err);
+    }
+    res.render('pages/images', {pics: files})
+    });
+})
 
 app.get('/paper', function(req, res) {
     res.render('pages/mypaper');

@@ -10,6 +10,8 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(fileUpload());
+app.use(express.static('image'))
+
 
 let db = new sqlite3.Database('mydata.db3');
 
@@ -125,17 +127,42 @@ app.get('/upload', (req, res) => {
     res.render('pages/upload')
 });
 
+
+app.post('/upload', function(req, res) {
+  let sampleFile;
+  let uploadPath;
+
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send('No files were uploaded.');
+  }
+
+  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+  sampleFile = req.files.image;
+  uploadPath = __dirname + '/image/' + sampleFile.name;
+
+  // Use the mv() method to place the file somewhere on your server
+  sampleFile.mv(uploadPath, function(err) {
+    if (err)
+      return res.status(500).send(err);
+
+    res.send('File uploaded!');
+  });
+});
+
+/*
 app.post('/upload', (req, res) => {
     // Get the file that was set to our field named "image"
     const { image } = req.files;
 
     // If no image submitted, exit
     if (!image) return res.sendStatus(400);
+    console.log(image.name);
+    console.log(image.mimetype);
 
     // Move the uploaded image to our upload folder
     image.mv(__dirname + '/upload/' + image.name);
     res.redirect('/');
 });
-
+*/
 app.listen(5000);
     console.log('Server is listening on port 5000');

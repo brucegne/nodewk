@@ -3,6 +3,8 @@ var app = express();
 var request = require('request');
 const path = require('path');
 const fs = require('fs');
+require('./tools.js')();
+
 //joining path of directory 
 const directoryPath = path.join(__dirname, 'image');
 
@@ -19,6 +21,10 @@ app.use(express.static('image'))
 
 
 let db = new sqlite3.Database('mydata.db3');
+let dbImages = new sqlite3.Database('myImages.db3');
+let dbUsers = new sqlite3.Database('myUsers.db3');
+let dbPosts = new sqlite3.Database('myPosts.db3');
+let dbLogs = new sqlite3.Database('myLogs.db3');
 
 var transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -60,6 +66,8 @@ app.get('/', function(req, res) {
   });
 });
 
+console.log(sum(25,45));
+console.log(multiply(25,45))
 
 app.get('/images', function(req, res) {
     fs.readdir(directoryPath, function (err, files) {
@@ -165,21 +173,5 @@ app.post('/upload', function(req, res) {
   });
 });
 
-/*
-app.post('/upload', (req, res) => {
-    // Get the file that was set to our field named "image"
-    const { image } = req.files;
-
-    // If no image submitted, exit
-    if (!image) return res.sendStatus(400);
-    console.log(__dirname);
-    console.log(image.name);
-    console.log(image.mimetype);
-
-    // Move the uploaded image to our upload folder
-    image.mv(__dirname + '/upload/' + image.name);
-    res.redirect('/');
-});
-*/
 app.listen(5000);
     console.log('Server is listening on port 5000');

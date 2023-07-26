@@ -3,11 +3,11 @@ var app = express();
 var request = require('request');
 const path = require('path');
 const fs = require('fs');
+
 require('./tools.js')();
 
 //joining path of directory 
 const directoryPath = path.join(__dirname, 'image');
-
 const fileUpload = require('express-fileupload');
 var nodemailer = require('nodemailer');
 var sqlite3 = require('sqlite3').verbose();
@@ -68,6 +68,28 @@ app.get('/', function(req, res) {
 
 console.log(sum(25,45));
 console.log(multiply(25,45))
+console.log(nothing('/Users/user01/Posts/001'));
+console.log(Date.now());
+
+
+// Try some file handling....
+const contentPath = path.join(__dirname, '/public/Users/Posts/user01');
+
+try {
+  if (!fs.existsSync(contentPath)) {
+    fs.mkdirSync(contentPath);
+  }
+} catch (err) {
+  console.error(err);
+}
+
+try {
+    var content = 'Now is the time\r\nTo do something on a \r\nDifferent line.';
+    fs.writeFile(contentPath+'/test.txt', content, { flag: 'w' }, err => {});
+} catch (err) {
+  console.error(err);
+}
+
 
 app.get('/images', function(req, res) {
     fs.readdir(directoryPath, function (err, files) {

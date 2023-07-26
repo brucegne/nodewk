@@ -16,8 +16,7 @@
 </header>
 
 <main>
-  <div class="jumbotron">
-    <h1>This is great</h1>
+  <div class="jumbotron pt-5">
     <h2>Edit Contact Record</h2>
     <form method="post" action="/editrec">
         <input type="hidden" name="rowid" value="<%= contact.rowid %>">
@@ -40,7 +39,7 @@
             <div class="form-group">
                 <input type="checkbox" name="delCont">&nbsp;&nbsp;&nbsp;Delete this contact
             </div>
-            <button type="submit" class="btn btn-primary">Save</button>`
+            <button type="submit" class="btn btn-primary" style="margin-top: 15px;">Save</button>`
     </form>
   </div>
 </main>

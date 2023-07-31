@@ -57,7 +57,6 @@ app.get('/setup', function(req,res) {
     sql = "create table if not exists CONTACTS (fname TEXT, lname TEXT, email TEXT, phone TEXT)";
     db.run(sql, [], function(err,row) {
         console.log(err);
-        console.log(delCont);
         res.redirect('/contact');
     });    
 })

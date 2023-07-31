@@ -6,9 +6,11 @@ const fs = require('fs');
 require('./tools.js')();
 
 //joining path of directory 
-const directoryPath = path.join(__dirname, 'image');
+const directoryPath = path.join(__dirname, 'public');
+const ImagePath = path.join(__dirname, 'public/images')
 
 const fileUpload = require('express-fileupload');
+
 var nodemailer = require('nodemailer');
 var sqlite3 = require('sqlite3').verbose();
 
@@ -17,14 +19,14 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(fileUpload());
-app.use(express.static('image'))
+app.use(express.static('public'))
 
 
-let db = new sqlite3.Database('mydata.db3');
-let dbImages = new sqlite3.Database('myImages.db3');
-let dbUsers = new sqlite3.Database('myUsers.db3');
-let dbPosts = new sqlite3.Database('myPosts.db3');
-let dbLogs = new sqlite3.Database('myLogs.db3');
+let db = new sqlite3.Database('public/mydata.db3');
+let dbImages = new sqlite3.Database('public/myImages.db3');
+let dbUsers = new sqlite3.Database('public/myUsers.db3');
+let dbPosts = new sqlite3.Database('public/myPosts.db3');
+let dbLogs = new sqlite3.Database('public/myLogs.db3');
 
 var transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -70,7 +72,7 @@ console.log(sum(25,45));
 console.log(multiply(25,45))
 
 app.get('/images', function(req, res) {
-    fs.readdir(directoryPath, function (err, files) {
+    fs.readdir(ImagePath, function (err, files) {
     //handling error
     if (err) {
         return console.log('Unable to scan directory: ' + err);
@@ -162,7 +164,8 @@ app.post('/upload', function(req, res) {
 
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
   sampleFile = req.files.image;
-  uploadPath = __dirname + '/image/' + sampleFile.name;
+  uploadPath = __dirname + '/public/images/' + sampleFile.name;
+  console.log(uploadPath);
 
   // Use the mv() method to place the file somewhere on your server
   sampleFile.mv(uploadPath, function(err) {

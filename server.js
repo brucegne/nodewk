@@ -53,14 +53,17 @@ function mailIt(){
     });
 };
 
-
-// index page
-app.get('/', function(req, res) {
+app.get('/setup', function(req,res) {
+    sql = "create table if not exists CONTACTS (fname TEXT, lname TEXT, email TEXT, phone TEXT)";
     db.run(sql, [], function(err,row) {
         console.log(err);
         console.log(delCont);
         res.redirect('/contact');
-    });
+    });    
+})
+
+// index page
+app.get('/', function(req, res) {
   var mascots = [
     { name: 'Sammy', organization: "DigitalOcean", birth_year: 2012},
     { name: 'Tux', organization: "Linux", birth_year: 1996},
@@ -98,11 +101,6 @@ app.get('/about', function(req, res) {
 });
 
 app.get('/contact', function(req, res) {
-    db.run(sql, [], function(err,row) {
-        console.log(err);
-        console.log(delCont);
-        res.redirect('/contact');
-    });
     var sql = 'SELECT rowid,* FROM CONTACTS;';
     db.all(sql, [], (err, rows) =>{
     res.render('pages/contacts', {contacts: rows, uname: 'Bruce E. Gordon', mesg: "Isn't this neet?" });
@@ -128,8 +126,6 @@ app.delete('/delete/:recID', (req, res) => {
 });
 
 app.post('/editrec', (req, res) => {
-    sql = '''create table if not exists CONTACTS (fname TEXT, lname TEXT, email TEXT, phone Text);''';
-
     var rowid = req.body.rowid;
     var fname = req.body.fname;
     var lname = req.body.lname;

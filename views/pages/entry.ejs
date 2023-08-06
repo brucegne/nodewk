@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+.glyph-icon svc {
+    width: 16px;
+    height: 16px;
+}
+</style>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<main>
+  <div class="jumbotron pt-5" style="width: 350px;">
+    <form method="post" action="post_entry">
+        <div class="form-group">
+            <label for="blogentry" class="col-2">First Name</label>
+            <textarea name="blogpost" class="form-control col-3" rows="10" id="blogentry"></textarea>
+        </div>
+        <div>          
+          <button type="submit" class="btn btn-primary" style="margin-top:15px;">Submit</button>
+       </div>
+ </main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

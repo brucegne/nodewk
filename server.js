@@ -71,6 +71,23 @@ console.log(multiply(25,45))
 console.log(whereisit('/Users/user01/Posts/001'));
 console.log(Date.now());
 
+app.get('/entry', function(req, res) {
+    res.render('pages/entry');
+});
+
+app.post('/post_entry', function(req, res) {
+    var newpost = req.body.blogpost;
+    fs.writeFile(__dirname + `/public/Users/Posts/user01/test.html`, newpost , (err) => {
+      if (err)
+        console.log(err);
+      else {
+        console.log("File written successfully\n");
+      }
+    })
+    res.redirect('/folders');
+})
+
+
 app.get('/folders', function(req,res) {
           fs.readdir(__dirname + `/public/Users/Posts/`,{ withFileTypes: true }, function(err, files) {
             if (err) throw err;

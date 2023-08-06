@@ -68,27 +68,24 @@ app.get('/', function(req, res) {
 
 console.log(sum(25,45));
 console.log(multiply(25,45))
-console.log(nothing('/Users/user01/Posts/001'));
+console.log(whereisit('/Users/user01/Posts/001'));
 console.log(Date.now());
 
-
-// Try some file handling....
-const contentPath = path.join(__dirname, '/public/Users/Posts/user01');
-
-try {
-  if (!fs.existsSync(contentPath)) {
-    fs.mkdirSync(contentPath);
-  }
-} catch (err) {
-  console.error(err);
-}
-
-try {
-    var content = 'Now is the time\r\nTo do something on a \r\nDifferent line.';
-    fs.writeFile(contentPath+'/test.txt', content, { flag: 'w' }, err => {});
-} catch (err) {
-  console.error(err);
-}
+app.get('/folders', function(req,res) {
+          fs.readdir(__dirname + `/public/Users/Posts/`,{ withFileTypes: true }, function(err, files) {
+            if (err) throw err;
+            let directoriesInDIrectory = files
+               .filter((item) => item.isDirectory())
+               .map((item) => item.name);
+                let rList = directoriesInDIrectory;
+          
+            fs.readFile(__dirname + `/public/Users/Posts/user01/test.html`, 'utf8', (err, content) => {
+            let rValue = content;
+                
+    res.render('pages/files', { fList: rList, content: rValue });
+})
+        })
+});
 
 
 app.get('/images', function(req, res) {
@@ -100,10 +97,6 @@ app.get('/images', function(req, res) {
     res.render('pages/images', {pics: files})
     });
 })
-
-app.get('/paper', function(req, res) {
-    res.render('pages/mypaper');
-});
 
 // about page
 app.get('/about', function(req, res) {

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+.glyph-icon svc {
+    width: 16px;
+    height: 16px;
+}
+</style>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<main>
+  <div class="jumbotron pt-5" style="width: 350px;">
+      <h2>Files in User Directory</h2>
+  </div>
+  <div style="width:600px;">
+    <table class="table table-dark table-striped" style="margin-top: 20px;">
+      <thead>
+        <tr>
+          <th scope="col">File Name</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% for (var i = 0; i < fList.length; i++) { %>
+        <tr>
+          <td><%= fList[i] %></td>
+        </tr>
+      <% }; %>
+    </tbody>
+  </table>
+  </div>
+  <div><%- content %>
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

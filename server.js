@@ -72,7 +72,9 @@ console.log(whereisit('/Users/user01/Posts/001'));
 console.log(Date.now());
 
 app.get('/entry', function(req, res) {
-    res.render('pages/entry');
+    fs.readFile(__dirname + `/public/Users/Posts/user01/test.html`, 'utf8', (err, content) => {
+        res.render('pages/entry', {existing: content });
+    })
 });
 
 app.post('/post_entry', function(req, res) {

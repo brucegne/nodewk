@@ -10,7 +10,6 @@ require('./tools.js')();
 const directoryPath = path.join(__dirname, 'image');
 const fileUpload = require('express-fileupload');
 var nodemailer = require('nodemailer');
-var sqlite3 = require('sqlite3').verbose();
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -18,13 +17,6 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(fileUpload());
 app.use(express.static('image'))
-
-
-let db = new sqlite3.Database('mydata.db3');
-let dbImages = new sqlite3.Database('myImages.db3');
-let dbUsers = new sqlite3.Database('myUsers.db3');
-let dbPosts = new sqlite3.Database('myPosts.db3');
-let dbLogs = new sqlite3.Database('myLogs.db3');
 
 var transporter = nodemailer.createTransport({
     service: 'gmail',

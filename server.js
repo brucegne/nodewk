@@ -64,14 +64,14 @@ console.log(whereisit('/Users/user01/Posts/001'));
 console.log(Date.now());
 
 app.get('/entry', function(req, res) {
-    fs.readFile(__dirname + `/public/Users/Posts/user01/test.html`, 'utf8', (err, content) => {
+    fs.readFile(__dirname + `/public/Users/Posts/2023-08-14 As time happens/here.html`, 'utf8', (err, content) => {
         res.render('pages/entry', {existing: content });
     })
 });
 
 app.post('/post_entry', function(req, res) {
     var newpost = req.body.blogpost;
-    fs.writeFile(__dirname + `/public/Users/Posts/user01/test.html`, newpost , (err) => {
+    fs.writeFile(__dirname + `/public/Users/Posts/2023-08-14 As time happens/here.html`, newpost , (err) => {
       if (err)
         console.log(err);
       else {

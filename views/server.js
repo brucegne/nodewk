@@ -3,6 +3,7 @@ var app = express();
 var request = require('request');
 const path = require('path');
 const fs = require('fs');
+const sqlite3 = require('sqlite3').verbose();
 
 require('./tools.js')();
 
@@ -10,7 +11,6 @@ require('./tools.js')();
 const directoryPath = path.join(__dirname, 'image');
 const fileUpload = require('express-fileupload');
 var nodemailer = require('nodemailer');
-var sqlite3 = require('sqlite3').verbose();
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -19,6 +19,8 @@ app.use(express.urlencoded({extended: true}));
 app.use(fileUpload());
 app.use(express.static('image'))
 
+
+var sqlite3 = require('sqlite3').verbose();
 
 let db = new sqlite3.Database('mydata.db3');
 let dbImages = new sqlite3.Database('myImages.db3');
@@ -105,6 +107,7 @@ app.get('/about', function(req, res) {
 });
 
 app.get('/contact', function(req, res) {
+    let db = new sqlite3.Database('mydata.db3');
     var sql = 'SELECT rowid,* FROM CONTACTS;';
     db.all(sql, [], (err, rows) =>{
     res.render('pages/contacts', {contacts: rows, uname: 'Bruce E. Gordon', mesg: "Isn't this neet?" });

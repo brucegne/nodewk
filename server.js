@@ -3,6 +3,13 @@ var app = express();
 var request = require('request');
 const path = require('path');
 const fs = require('fs');
+var sqlite3 = require('sqlite3').verbose();
+
+let db = new sqlite3.Database('mydata.db3');
+let dbImages = new sqlite3.Database('myImages.db3');
+let dbUsers = new sqlite3.Database('myUsers.db3');
+let dbPosts = new sqlite3.Database('myPosts.db3');
+let dbLogs = new sqlite3.Database('myLogs.db3');
 
 require('./tools.js')();
 

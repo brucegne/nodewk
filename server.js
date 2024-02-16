@@ -19,7 +19,7 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(fileUpload());
-app.use(express.static('public'))
+app.use(express.static('public/images'))
 
 
 let db = new sqlite3.Database('public/mydata.db3');

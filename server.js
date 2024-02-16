@@ -22,11 +22,7 @@ app.use(fileUpload());
 app.use(express.static('public/images'))
 
 
-let db = new sqlite3.Database('public/mydata.db3');
-let dbImages = new sqlite3.Database('public/myImages.db3');
-let dbUsers = new sqlite3.Database('public/myUsers.db3');
-let dbPosts = new sqlite3.Database('public/myPosts.db3');
-let dbLogs = new sqlite3.Database('public/myLogs.db3');
+let db = new sqlite3.Database('./mydata.db3');
 
 var transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -184,5 +180,5 @@ app.post('/upload', function(req, res) {
   });
 });
 
-app.listen(5000);
-    console.log('Server is listening on port 5000');
+app.listen(8000);
+    console.log('Server is listening on port 8000');

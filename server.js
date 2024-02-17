@@ -1,3 +1,4 @@
+
 var express = require('express');
 var app = express();
 var request = require('request');
@@ -90,6 +91,24 @@ app.get('/paper', function(req, res) {
 });
 
 // about page
+
+app.get('/clean', function(resq, res) {
+    fs.readdir(directoryPath, function (err, files) {
+        files.forEach( function(pic) {
+            position=pic.search('copy');
+            if (position > 0) {
+                toDelete = directoryPath+'/'+pic;
+                fs.unlink(toDelete,function(err){
+                    if(err) return console.log(err);
+                    console.log('file deleted successfully');
+   });  
+            }
+    })
+})
+res.redirect('/')
+})
+
+
 app.get('/about', function(req, res) {
    mailIt();
   res.render('pages/about');

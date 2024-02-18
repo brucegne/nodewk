@@ -42,16 +42,29 @@
     <p>
         <% if (contacts) { %>
     <ul>
+  <div style="width:600px;">
+    <table class="table table-dark table-striped" style="margin-top: 20px;">
+      <thead>
+        <tr>
+          <th>&nbsp;</th>
+          <th scope="col">First</th>
+          <th scope="col">Last</th>
+          <th scope="col">EMail</th>
+          <th scope="col">Phone</th>
+        </tr>
+      </thead>
+      <tbody>
       <% contacts.forEach(function(contact) { %>
-      <li><a href="/edit/<%= contact.rowid %>/"<span class="material-symbols-outlined">edit</span></a>
-		<strong><%= contact.fname %> <%= contact.lname%></strong>
-          Email Address: <%= contact.email %>,
-	  at telephone <%= contact.phone %>
-        </li>
+        <tr>
+          <td><a href="/edit/<%= contact.rowid %>/"<span class="material-symbols-outlined">edit</span></a></td>
+          <td><%= contact.fname %></td>
+          <td><%= contact.lname %></td>
+          <td><%= contact.email %></td>
+          <td><%= contact.phone %></td>
+        </tr>
       <% }); %>
-    </ul>
-    <% } %>
-    </p>
+    </tbody>
+  </table>
   </div>
 </main>
 

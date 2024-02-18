@@ -23,7 +23,7 @@ app.use(fileUpload());
 app.use(express.static('public'))
 
 
-let db = new sqlite3.Database('./mydata.db3');
+let db = new sqlite3.Database('public/data/mydata.db3');
 
 var transporter = nodemailer.createTransport({
     service: 'gmail',

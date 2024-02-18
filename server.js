@@ -25,6 +25,12 @@ app.use(express.static('public'))
 
 let db = new sqlite3.Database('public/data/mydata.db3');
 
+sql = "create table if not exists CONTACTS (fname TEXT, lname TEXT, email TEXT, phone TEXT)";
+db.run(sql, [], function(err,row) {
+	console.log(err);
+})
+
+
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: { 

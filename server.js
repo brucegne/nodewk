@@ -45,7 +45,7 @@ function mailIt(){
         to: 'brucegne@gmail.com',
         submect: 'Sending a test email from node js',
         text: 'That was way easier than I thought it would be.',
-        html: "<h1>Welcome to my site !!!</h1>'
+        html: "<h1>Welcome to my site !!!</h1>"
     }
 
     transporter.sendMail(mailOptions, function(error, info){

@@ -11,7 +11,7 @@ var telerivet = require('telerivet');
 var tr = new telerivet.API('UGwhC_aW52SODoMAKo8ood9AXkxeZrBlYB2q');
 var project = tr.initProjectById('PJ81cec5079020b7dc');
 var WEBHOOK_SECRET = "A6TWPK7TCM4AUX7MAGMHHMHPUQM6E467";
-
+/*
 project.sendMessage({
     content: "hello world", 
     to_number: "+16505550123"
@@ -19,6 +19,7 @@ project.sendMessage({
     
 
 });
+*/
 
 //api Key
 //UGwhC_aW52SODoMAKo8ood9AXkxeZrBlYB2q
@@ -76,6 +77,32 @@ function mailIt(){
         }
     });
 };
+
+app.post('/api/incoming',
+  bodyParser.urlencoded({ extended: true }),
+  function(req, res) {
+      var secret = req.body.secret;
+      if (secret !== WEBHOOK_SECRET) {
+          res.status(403).end();
+          return;
+      }
+
+      if (req.body.event == 'incoming_message') {
+        var content = req.body.content;
+        var from_number = req.body.from_number;
+        var phone_id = req.body.phone_id;
+
+        // do something with the message, e.g. send an autoreply
+        res.json({
+          messages: [
+            { content: "Thanks for your message!" }
+          ]
+        });
+      }
+
+      res.status(200).end();
+  }
+);
 
 app.get('/setup', function(req,res) {
     sql = "create table if not exists CONTACTS (fname TEXT, lname TEXT, email TEXT, phone TEXT)";

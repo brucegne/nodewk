@@ -94,7 +94,7 @@ app.post('/api/incoming',
         console.log(content);
         console.log(from_number);
         console.log(phone_id);
-
+        var you_sent = 'Thanks for your reply, you sent me: '+content;
         // do something with the message, e.g. send an autoreply
         res.json({
           messages: [

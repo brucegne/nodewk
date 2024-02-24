@@ -91,6 +91,9 @@ app.post('/api/incoming',
         var content = req.body.content;
         var from_number = req.body.from_number;
         var phone_id = req.body.phone_id;
+        console.log(content);
+        console.log(from_number);
+        console.log(phone_id);
 
         // do something with the message, e.g. send an autoreply
         res.json({

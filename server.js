@@ -98,7 +98,7 @@ app.post('/api/incoming',
         // do something with the message, e.g. send an autoreply
         res.json({
           messages: [
-            { content: "Thanks for your message!" }
+            { content: you_sent }
           ]
         });
       }

@@ -86,7 +86,6 @@ app.post('/api/incoming',
           res.status(403).end();
           return;
       }
-
       if (req.body.event == 'incoming_message') {
         var content = req.body.content;
         var from_number = req.body.from_number;
@@ -94,7 +93,7 @@ app.post('/api/incoming',
         console.log(content);
         console.log(from_number);
         console.log(phone_id);
-        var you_sent = 'Thanks for your reply, you sent me: '+content;
+        var you_sent = 'Thanks for your reply, you sent me: '+content+'Menu\n\n1-Balance\n2-Check Status\n3-Send Message\n';
         // do something with the message, e.g. send an autoreply
         res.json({
           messages: [

@@ -1,10 +1,30 @@
 
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
 var request = require('request');
 const path = require('path');
 const fs = require('fs');
-require('./tools.js')();
+const tojs = require('./tools.js')();
+var telerivet = require('telerivet');
+
+var tr = new telerivet.API('UGwhC_aW52SODoMAKo8ood9AXkxeZrBlYB2q');
+var project = tr.initProjectById('PJ81cec5079020b7dc');
+var WEBHOOK_SECRET = "A6TWPK7TCM4AUX7MAGMHHMHPUQM6E467";
+
+project.sendMessage({
+    content: "hello world", 
+    to_number: "+16505550123"
+}, function(err, message) {
+    
+
+});
+
+//api Key
+//UGwhC_aW52SODoMAKo8ood9AXkxeZrBlYB2q
+//project id
+//PJ81cec5079020b7dc
+
 
 //joining path of directory 
 const directoryPath = path.join(__dirname, 'public');

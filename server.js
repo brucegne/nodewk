@@ -17,7 +17,6 @@ project.sendMessage({
     to_number: "+16505550123"
 }, function(err, message) {
     
-
 });
 */
 
@@ -42,7 +41,6 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(fileUpload());
 app.use(express.static('public'))
-
 
 let db = new sqlite3.Database('/var/data/mydata.db3');
 

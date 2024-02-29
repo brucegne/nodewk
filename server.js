@@ -130,7 +130,7 @@ app.get('/', function(req, res) {
 console.log(sum(25,45));
 console.log(multiply(25,45))
 
-app.get('/images', function(req, res) {
+app.get('/mybabygirl', function(req, res) {
     fs.readdir(ImagePath, function (err, files) {
     //handling error
     if (err) {

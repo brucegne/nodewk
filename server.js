@@ -131,6 +131,15 @@ console.log(sum(25,45));
 console.log(multiply(25,45))
 
 app.get('/mybabygirl', function(req, res) {
+
+
+project.sendMessage({
+    content: "Somebody is viewing Kellies Photos", 
+    to_number: "+14029210223"
+	}, function(err, message) {
+
+	});
+
     fs.readdir(ImagePath, function (err, files) {
     //handling error
     if (err) {

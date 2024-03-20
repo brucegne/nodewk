@@ -1,4 +1,3 @@
-
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
@@ -6,6 +5,12 @@ var request = require('request');
 const path = require('path');
 const fs = require('fs');
 const tojs = require('./tools.js')();
+const admin = require('firebase-admin');
+const serviceAccount = require('./myfirebase.json');
+admin.initializeApp({
+	credential: admin.credential.cert(serviceAccount)
+});
+
 var telerivet = require('telerivet');
 
 var tr = new telerivet.API('UGwhC_aW52SODoMAKo8ood9AXkxeZrBlYB2q');
@@ -25,6 +30,13 @@ project.sendMessage({
 //project id
 //PJ81cec5079020b7dc
 
+async function getFSdata () {
+	fsdb = admin.firestore();
+	const UsersDB = await fsdb.collection('ItsMe').doc('FirstOne').get();
+	console.log(UsersDB.data);
+}
+
+getFSdata();
 
 //joining path of directory 
 const directoryPath = path.join(__dirname, 'public');
@@ -42,7 +54,8 @@ app.use(express.urlencoded({extended: true}));
 app.use(fileUpload());
 app.use(express.static('public'))
 
-let db = new sqlite3.Database('/var/data/mydata.db3');
+// let db = new sqlite3.Database('/var/data/mydata.db3');
+let db = new sqlite3.Database('mydata.db3');
 
 sql = "create table if not exists CONTACTS (fname TEXT, lname TEXT, email TEXT, phone TEXT)";
 db.run(sql, [], function(err,row) {

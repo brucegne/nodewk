@@ -8,16 +8,16 @@ db = admin.firestore();
 
 async function addRec() {
 	await db.collection('ItsMe').doc().set({
-		"first": "Bruce Edwin",
-		"Last": "Gordon",
-		"Age": "68"
+		"first": "Merele David",
+		"Last": "Myers",
+		"Age": "94"
 	})
 }
 
 async function getRec() {
 //	const user = await db.collection('ItsMe').doc('SecondOne').get();
 //	const data = await db.collection('ItsMe').where('first', '==', 'Danial David').orderBy("first").get();
-	const data = await db.collection('ItsMe').orderBy("first").get();
+	const data = await db.collection('ItsMe').orderBy("Age").get();
 	var resArr = [];
 	data.forEach((doc) => {
 		resArr.push(doc.data());

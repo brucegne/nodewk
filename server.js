@@ -5,8 +5,8 @@ var request = require('request');
 const path = require('path');
 const fs = require('fs');
 const tojs = require('./tools.js')();
-const admin = require('firebase-admin');
-const serviceAccount = require('./myfirebase.json');
+const admin = require('firejson');
+const serviceAccount = requure('./myfirebase.json');
 admin.initializeApp({
 	credential: admin.credential.cert(serviceAccount)
 });

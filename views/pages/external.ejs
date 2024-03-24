@@ -1,0 +1,515 @@
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Welcome to the Gordon family</title>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="apple-touch-icon"
+      sizes="192x192"
+      href="https://cdn.glitch.me/9f620dd5-40f5-40b1-82c6-6052c91dc7ca%2Fmaskable_icon_x192.png?v=1637639038598"
+    />
+
+    <meta name="theme-color" content="#000000" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link
+      href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAD9/f0AAAAAAOzs7ADl5eUA/Pz8ACsZBgD+/v4AAwMDAPv7+wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEWZmZmZmIxERZmZmZmZmERFmZmZmZmYREWZmZoZmZhERZmYUVmZmERFmYREWZmYREWYRERFmZhERZhYREXZmERFmZmYRZmYREWZmZhFmZhERZmZmERFmERFmZmYHEWYREWZmZmZmZhERZmZmZmZmERFmZmZmZmYREWZmZmZmZhHAAwAAwAMAAMADAADAAwAAwAMAAMADAADAAwAAwAMAAMADAADAAwAAwAMAAMADAADAAwAAwAMAAMADAADAAwAA"
+      rel="icon"
+      type="image/x-icon"
+    />
+    <link rel="apple-touch-startup-image" media="screen and (device-width:
+    320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and
+    (orientation: landscape)"
+    href=""https://cdn.glitch.me/9f620dd5-40f5-40b1-82c6-6052c91dc7ca%2Fmaskable_icon_x192.png?v=1637639038598"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="block__install" id="BlockInstall" style="display: none;">
+      <div class="inner">
+          <div class="close" id="BlockInstallClose">
+              <span>X
+              </span>
+          </div>
+          <div class="logo">
+              <img src="logo-pwa.png" />
+          </div>
+          <div class="name">
+              <span class="title">studio57.dev</span>
+              <span class="description">The Gordon Family</span>
+          </div>
+          <div class="cta">
+              <button id="BlockInstallButton" class="btn btn-primary" onclick="addToHomeScreen();">Install</button>
+          </div>
+      </div>
+    </div>
+    <div class="cta">
+        <button id="install-btn" class="btn btn-primary" style="display: none;">Install App</button>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/boot"
+                >API</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Dropdown
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled">Disabled</a>
+            </li>
+          </ul>
+          <form class="d-flex">
+            <input
+              class="form-control me-2"
+              id="search_it"
+              type="search"
+              placeholder="Initials"
+              aria-label="Search"
+            />
+            <button
+              class="btn btn-outline-success"
+              onclick="findit()"
+              type="button"
+            >
+              Search
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div>
+        <h1><br />The Gordon Family</h1>
+      </div>
+      <p id="photo"></p>
+      <formgroup>
+        <div class="form-group">
+          <legend>Set Data</legend>
+          <input type="hidden" id="photo_link" name="photo_link" />
+          <input type="hidden" name="setkey" id="setkey" />
+          <label for="fname" style="width: 150px">First Name</label>
+          <input type="text" name="fname" id="fname" />
+        </div>
+        <br />
+        <div>
+          <label for="middle" style="width: 150px">Middle Name</label>
+          <input type="text" name="middle" id="middle" />
+        </div>
+        <br />
+        <div>
+          <label for="lname" style="width: 150px">Last Name</label>
+          <input type="text" name="lname" id="lname" />
+        </div>
+        <br />
+        <div>
+          <label for="phone" style="width: 150px">Telephone</label>
+          <input type="text" name="phone" id="phone" />
+        </div>
+        <br />
+        <div>
+          <label for="born" style="width: 150px">Birthday</label>
+          <input type="text" name="born" id="born" />
+        </div>
+        <p>
+          <input id="imgIn" type="file" class="file-select" accept="image/*" />
+        </p>
+
+        <button id="btn_post" class="btn btn-primary" onclick="set_name()">
+          Insert / Update Data
+        </button>
+        <button id="btn_remove" class="btn btn-danger" onclick="remove_key()">
+          Delete
+        </button>
+      </formgroup>
+      <div>
+        <h2><span id="full_name"></span></h2>
+      </div>
+      <div
+        class="results"
+        id="results"
+        style="padding-top: 50px; padding-bottom: 50px"
+      ></div>
+    </div>
+    <script id="temp101" type="text/template">
+      <div class="row">
+        <div2"><button class="btn btn-primary" onclick="follow_link('{{record_key}}')">Edit</button></div>
+        <div class="col-6">{{full_name}}</div>
+      </div>
+    </script>
+
+    <script>
+
+      function myShowHideImg() {
+          var x = document.getElementById("myDIV");
+          if (x.style.display === "none") {
+            x.style.display = "block";
+          } else {
+            x.style.display = "none";
+          };
+      };
+
+
+          function nextPage() {
+            window.location.href = "/boot.html";
+          }
+
+          document.addEventListener("DOMContentLoaded", function () {
+            console.log("Started");
+          });
+
+      var firebaseConfig = {
+            apiKey: "AIzaSyC7lxOqARJi825uK-kOcOTugeDVFENc5rY",
+            authDomain: "myfbhosting.firebaseapp.com",
+            storageBucket: "myfbhosting.appspot.com",
+            projectId: "myfbhosting",
+      };
+            
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+
+      const db = firebase.firestore();
+//          var db = firebase.firestore();
+          db.enablePersistence().catch((err) => console.log(err));
+          const storageService = firebase.storage();
+          const storageRef = storageService.ref();
+
+          var templateHTML = document.getElementById("temp101").innerHTML;
+          var templateOutput = document.getElementById("results");
+          document.getElementById("results").innerHTML = "";
+          var hOut = "";
+          var hArr = [];
+
+          db.collection("users").onSnapshot((querySnapshot) => {
+            hArr = [];
+            querySnapshot.forEach((doc) => {
+              hOut = "";
+              record_key = doc.id;
+              fname = doc.data().first;
+              lname = doc.data().last;
+              middle = doc.data().middle;
+              phone = doc.data().phone;
+              born = doc.data().born;
+              photo = doc.data().photo;
+              full_name = fname + " " + middle + " , " + lname;
+              hOut += templateHTML
+                .replace(/{{record_key}}/g, record_key)
+                .replace(/{{full_name}}/g, full_name);
+              hArr.push(hOut);
+            });
+            templateOutput.innerHTML = hArr.join("<br />");
+          });
+
+          function loadData() {
+            db.collection("users").get((querySnapshot) => {
+              hArr = [];
+              querySnapshot.forEach((doc) => {
+                hOut = "";
+                record_key = doc.id;
+                fname = doc.data().first;
+                lname = doc.data().last;
+                middle = doc.data().middle;
+                phone = doc.data().phone;
+                born = doc.data().born;
+                photo = doc.data().photo;
+                full_name = fname + " " + middle + " , " + lname;
+                hOut += templateHTML
+                  .replace(/{{record_key}}/g, record_key)
+                  .replace(/{{full_name}}/g, full_name);
+                hArr.push(hOut);
+              });
+              templateOutput.innerHTML = hArr.join("<br />");
+            });
+          }
+
+          function remove_key() {
+            setKey = document.getElementById("setkey").value;
+            db.collection("users").doc(setKey).delete();
+            blank_fields();
+          }
+
+          function blank_fields() {
+            document.getElementById("full_name").innerHTML = "";
+            document.getElementById("fname").value = "";
+            document.getElementById("middle").value = "";
+            document.getElementById("lname").value = "";
+            document.getElementById("setkey").value = "";
+            document.getElementById("born").value = "";
+            document.getElementById("phone").value = "";
+            document.getElementById("photo").innerHTML = "";
+            document.getElementById("photo_link").value = "";
+            document.getElementById("imgIn").value = "";
+            loadData();
+          }
+
+          function set_name() {
+            setkey = document.getElementById("setkey").value;
+            fname = document.getElementById("fname").value;
+            lname = document.getElementById("lname").value;
+            middle = document.getElementById("middle").value;
+            born = document.getElementById("born").value;
+            phone = document.getElementById("phone").value;
+            photo = document.getElementById("photo_link").value;
+            if (setkey === "") {
+              db.collection("users").add({
+                first: fname,
+                middle: middle,
+                last: lname,
+                phone: phone,
+                born: born,
+                photo: photo,
+              });
+            } else {
+              db.collection("users").doc(setkey).set({
+                first: fname,
+                middle: middle,
+                last: lname,
+                phone: phone,
+                born: born,
+                photo: photo,
+              });
+            }
+            //      build_keys();
+            blank_fields();
+          }
+
+          function build_listing() {
+            var templateHTML = document.getElementById("temp101").innerHTML;
+            var templateOutput = document.getElementById("results");
+            document.getElementById("results").innerHTML = "";
+            var hOut = "";
+            var hArr = [];
+            db.collection("users")
+              .where("last", "!=", "yep")
+              .get()
+              .then((querySnapshot) => {
+                document.getElementById("results").innerHTML = "";
+                hArr = [];
+                querySnapshot.forEach((doc) => {
+                  hOut = "";
+                  console.log(`${doc.id} => ${doc.data().last}`);
+                  record_key = doc.id;
+                  fname = doc.data().first;
+                  lname = doc.data().last;
+                  middle = doc.data().middle;
+                  born = doc.data().born;
+                  photo = doc.data().photo;
+                  photo_link = doc.data().photo;
+                  full_name = fname + " " + middle + " , " + lname;
+                  console.log(full_name);
+                  hOut += templateHTML
+                    .replace(/{{record_key}}/g, record_key)
+                    .replace(/{{full_name}}/g, full_name);
+                  hArr.push(hOut);
+                });
+                templateOutput.innerHTML = hArr.join("<br />");
+              });
+          }
+
+          function build_keys() {
+            key_arr = [];
+            db.collection("users")
+              .where("last", "!=", "yep")
+              .get()
+              .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                  console.log(`${doc.id} => ${doc.data().last}`);
+                  key_arr.push(doc.id);
+                });
+                //            document.getElementById("keys").innerHTML = (key_arr.join('--'));
+              });
+          }
+
+          function follow_link(find_key) {
+            var dbRef = db.collection("users").doc(find_key);
+
+            dbRef
+              .get()
+              .then((doc) => {
+                if (doc.exists) {
+                  console.log("Document data:", doc.data());
+                  fname = doc.data().first;
+                  lname = doc.data().last;
+                  middle = doc.data().middle;
+                  born = doc.data().born;
+                  phone = doc.data().phone;
+                  photo = doc.data().photo;
+                  show_photo = `<img src='${photo}' width='400'>`;
+                  window.localStorage.setItem("photo", photo);
+                  console.log(localStorage.getItem("photo"));
+                  full_name = fname + " " + middle + " , " + lname;
+                  document.getElementById("full_name").innerHTML = full_name;
+                  document.getElementById("fname").value = fname;
+                  document.getElementById("middle").value = middle;
+                  document.getElementById("lname").value = lname;
+                  document.getElementById("setkey").value = find_key;
+                  document.getElementById("born").value = born;
+                  document.getElementById("phone").value = phone;
+                  document.getElementById("photo").innerHTML = show_photo;
+                  document.getElementById("photo_link").value = photo;
+                  document.getElementById("setkey").focus();
+                } else {
+                  // doc.data() will be undefined in this case
+                  console.log("No such document!");
+                }
+              })
+              .catch((error) => {
+                console.log("Error getting document:", error);
+              });
+
+            function findit() {
+              const navLinks = document.querySelectorAll(".nav-item");
+              const menuToggle = document.getElementById("navbarSupportedContent");
+              const bsCollapse = new bootstrap.Collapse(menuToggle);
+              navLinks.forEach((l) => {
+                l.addEventListener("click", () => {
+                  bsCollapse.toggle();
+                });
+              });
+              find_key = document.getElementById("search_it").value;
+              find_key = find_key.toLowerCase();
+              document.getElementById("search_it").value = "";
+              docKeys = [];
+              console.log("Hang on, I'm looking");
+              db.collection("users")
+                .doc(find_key)
+                .onSnapshot((doc) => {
+                  fname = doc.data().first;
+                  lname = doc.data().last;
+                  middle = doc.data().middle;
+                  born = doc.data().born;
+                  phone = doc.data().phone;
+                  full_name = fname + " " + middle + " , " + lname;
+                  document.getElementById("full_name").innerHTML = full_name;
+                  document.getElementById("fname").value = fname;
+                  document.getElementById("middle").value = middle;
+                  document.getElementById("lname").value = lname;
+                  document.getElementById("setkey").value = find_key;
+                  document.getElementById("born").value = born;
+                  document.getElementById("phone").value = phone;
+                  document.getElementById("setkey").focus();
+                });
+            }
+          }
+
+          document
+            .querySelector(".file-select")
+            .addEventListener("change", handleFileUploadChange);
+
+          function handleFileUploadChange(e) {
+            document.getElementById('btn_post').disabled=true;
+            let selectedFile;
+            selectedFile = e.target.files[0];
+            const uploadTask = storageRef
+              .child(`images/${selectedFile.name}`)
+              .put(selectedFile); //create a child directory called images, and place the file inside this directory
+            uploadTask.on(
+              "state_changed",
+              (snapshot) => {
+                // Observe state change events such as progress, pause, and resume
+              },
+              (error) => {
+                // Handle unsuccessful uploads
+                console.log(error);
+              },
+              () => {
+                // Do something once upload is complete
+                console.log("success");
+                uploadTask.snapshot.ref
+                  .getDownloadURL()
+                  .then(function (downloadURL) {
+                    console.log("File available at", downloadURL);
+                    document.getElementById("photo_link").value = downloadURL;
+                    show_photo = `<img src='${downloadURL}' height='100'>`;
+                    document.getElementById("photo").innerHTML = show_photo;
+                  });
+                  document.getElementById('btn_post').disabled=false;
+                let selectedFile;
+              }
+            );
+          }
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Check if the browser supports the beforeinstallprompt event
+      if ('serviceWorker' in navigator && 'BeforeInstallPromptEvent' in window) {
+        // Listen for the beforeinstallprompt event
+        window.addEventListener('beforeinstallprompt', (event) => {
+          // Prevent the default "Add to Home Screen" prompt
+          event.preventDefault();
+
+          // Show the "Install App" button
+          const installButton = document.getElementById('install-btn');
+          installButton.style.display = 'block';
+
+          // Save the event for later use
+          let deferredPrompt = event;
+
+          // Add event listener to the "Install App" button
+          installButton.addEventListener('click', () => {
+            // Trigger the "Add to Home Screen" prompt
+            deferredPrompt.prompt();
+
+            // Wait for the user to respond to the prompt
+            deferredPrompt.userChoice
+              .then((choiceResult) => {
+                // Reset the prompt variable
+                deferredPrompt = null;
+                // Hide the "Install App" button after the prompt is shown
+                installButton.style.display = 'none';
+              });
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
+

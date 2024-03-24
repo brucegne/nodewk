@@ -112,6 +112,10 @@ app.get('/setup', function(req,res) {
     });    
 })
 
+app.get('/external', function(req,res) {
+	res.render('public/external');
+})
+
 // index page
 app.get('/', function(req, res) {
   var mascots = [

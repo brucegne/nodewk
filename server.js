@@ -113,7 +113,7 @@ app.get('/setup', function(req,res) {
 })
 
 app.get('/external', function(req,res) {
-	res.render('public/external');
+	res.render('pages/external');
 })
 
 // index page

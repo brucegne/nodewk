@@ -5,7 +5,6 @@ var request = require('request');
 const path = require('path');
 const fs = require('fs');
 const tojs = require('./tools.js')();
-const admin = require('firejson');
 
 var telerivet = require('telerivet');
 

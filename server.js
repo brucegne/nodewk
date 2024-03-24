@@ -6,10 +6,6 @@ const path = require('path');
 const fs = require('fs');
 const tojs = require('./tools.js')();
 const admin = require('firejson');
-const serviceAccount = requure('./myfirebase.json');
-admin.initializeApp({
-	credential: admin.credential.cert(serviceAccount)
-});
 
 var telerivet = require('telerivet');
 
@@ -29,14 +25,6 @@ project.sendMessage({
 //UGwhC_aW52SODoMAKo8ood9AXkxeZrBlYB2q
 //project id
 //PJ81cec5079020b7dc
-
-async function getFSdata () {
-	fsdb = admin.firestore();
-	const UsersDB = await fsdb.collection('ItsMe').doc('FirstOne').get();
-	console.log(UsersDB.data);
-}
-
-getFSdata();
 
 //joining path of directory 
 const directoryPath = path.join(__dirname, 'public');

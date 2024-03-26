@@ -27,7 +27,7 @@ project.sendMessage({
 
 //joining path of directory 
 const directoryPath = path.join(__dirname, 'public');
-const ImagePath = path.join(__dirname, '/var/data/')
+const ImagePath = path.join(__dirname, 'var/data/')
 
 const fileUpload = require('express-fileupload');
 
@@ -134,19 +134,13 @@ console.log(sum(25,45));
 console.log(multiply(25,45))
 
 app.get('/mybabygirl', function(req, res) {
-	project.sendMessage({
-	    content: "Somebody is viewing Kellies Photos", 
-	    to_number: "+14029210223"
-		}, function(err, message) {
-		});
-	    // res.send("Sorry, viewing has expired");
-	    fs.readdir(ImagePath, function (err, files) {
-	    //handling error
-	    if (err) {
-		return console.log('Unable to scan directory: ' + err);
-	    }
-	    res.render('pages/images', {pics: files})
-	    });
+    fs.readdir(ImagePath, function (err, files) {
+    //handling error
+    if (err) {
+	return console.log('Unable to scan directory: ' + err);
+    }
+    res.render('pages/images', {pics: files})
+    });
 })
 
 app.get('/paper', function(req, res) {

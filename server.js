@@ -49,7 +49,6 @@ db.run(sql, [], function(err,row) {
 	console.log(err);
 })
 
-
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: { 
@@ -135,23 +134,19 @@ console.log(sum(25,45));
 console.log(multiply(25,45))
 
 app.get('/mybabygirl', function(req, res) {
-
-
-project.sendMessage({
-    content: "Somebody is viewing Kellies Photos", 
-    to_number: "+14029210223"
-	}, function(err, message) {
-	});
-    res.send("Sorry, viewing has expired");
-/*
-    fs.readdir(ImagePath, function (err, files) {
-    //handling error
-    if (err) {
-        return console.log('Unable to scan directory: ' + err);
-    }
-    res.render('pages/images', {pics: files})
-    });
-*/
+	project.sendMessage({
+	    content: "Somebody is viewing Kellies Photos", 
+	    to_number: "+14029210223"
+		}, function(err, message) {
+		});
+	    res.send("Sorry, viewing has expired");
+	    fs.readdir(ImagePath, function (err, files) {
+	    //handling error
+	    if (err) {
+		return console.log('Unable to scan directory: ' + err);
+	    }
+	    res.render('pages/images', {pics: files})
+	    });
 })
 
 app.get('/paper', function(req, res) {
@@ -175,7 +170,6 @@ app.get('/clean', function(resq, res) {
 })
 res.redirect('/')
 })
-
 
 app.get('/about', function(req, res) {
    mailIt();

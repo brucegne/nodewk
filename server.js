@@ -139,7 +139,7 @@ app.get('/mybabygirl', function(req, res) {
 	    to_number: "+14029210223"
 		}, function(err, message) {
 		});
-	    res.send("Sorry, viewing has expired");
+	    // res.send("Sorry, viewing has expired");
 	    fs.readdir(ImagePath, function (err, files) {
 	    //handling error
 	    if (err) {

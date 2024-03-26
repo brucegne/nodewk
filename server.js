@@ -27,7 +27,7 @@ project.sendMessage({
 
 //joining path of directory 
 const directoryPath = path.join(__dirname, 'public');
-const ImagePath = path.join(__dirname, 'var/data/')
+const ImagePath = path.join(__dirname, 'var/data')
 
 const fileUpload = require('express-fileupload');
 

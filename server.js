@@ -27,7 +27,7 @@ project.sendMessage({
 
 //joining path of directory 
 const directoryPath = path.join(__dirname, 'public');
-const ImagePath = path.join(__dirname, 'public/images')
+const ImagePath = path.join(__dirname, '/var/data/')
 
 const fileUpload = require('express-fileupload');
 
@@ -249,7 +249,7 @@ app.post('/upload', function(req, res) {
 
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
   sampleFile = req.files.image;
-  uploadPath = __dirname + '/public/images/' + sampleFile.name;
+  uploadPath = __dirname + '/var/data/' + sampleFile.name;
   console.log(uploadPath);
 
   // Use the mv() method to place the file somewhere on your server

@@ -24,7 +24,7 @@
     "nodemailer": "^6.9.3",
     "nodemon": "^1.19.4",
     "request": "^2.88.2",
-    "sqlite3": "^5.1.6",
+    "sqlite3": "^5.1.7",
     "sqlite3-transactions": "^0.0.5",
     "telerivet": "^1.7.0"
   }

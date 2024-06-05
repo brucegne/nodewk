@@ -5,7 +5,6 @@ var request = require('request');
 const path = require('path');
 const fs = require('fs');
 const tojs = require('./tools.js')();
-
 var telerivet = require('telerivet');
 
 var tr = new telerivet.API('UGwhC_aW52SODoMAKo8ood9AXkxeZrBlYB2q');
@@ -41,8 +40,8 @@ app.use(express.urlencoded({extended: true}));
 app.use(fileUpload());
 app.use(express.static('public'))
 
-let db = new sqlite3.Database('/var/data/mydata.db3');
-// let db = new sqlite3.Database('mydata.db3');
+// let db = new sqlite3.Database('/var/data/mydata.db3');
+let db = new sqlite3.Database('./mydata.db3');
 
 sql = "create table if not exists CONTACTS (fname TEXT, lname TEXT, email TEXT, phone TEXT)";
 db.run(sql, [], function(err,row) {
